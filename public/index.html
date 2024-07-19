@@ -38,13 +38,7 @@
                     throw new Error('File upload failed');
                 }
 
-                // Process the file
-                const processResponse = await fetch('http://localhost:8080/process');
-                if (!processResponse.ok) {
-                    throw new Error('File processing failed');
-                }
-
-                const jsonResponse = await processResponse.json();
+                const jsonResponse = await uploadResponse.json();
                 document.getElementById('output').textContent = JSON.stringify(jsonResponse, null, 2);
             } catch (error) {
                 alert(error.message);
