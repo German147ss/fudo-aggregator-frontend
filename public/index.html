@@ -4,51 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upload CSV/XLSX</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Upload CSV/XLSX File</h1>
+    <h1>Upload FUDO XLSX File</h1>
     <form id="uploadForm">
         <input type="file" id="fileInput" accept=".xlsx" required />
         <button type="submit">Upload</button>
     </form>
-    <pre id="output"></pre>
+    <div id="output"></div>
 
-    <script>
-        document.getElementById('uploadForm').addEventListener('submit', async function(event) {
-            event.preventDefault();
-            
-            const fileInput = document.getElementById('fileInput');
-            if (fileInput.files.length === 0) {
-                alert('Please select a file');
-                return;
-            }
-
-            const file = fileInput.files[0];
-            const formData = new FormData();
-            formData.append('file', file);
-
-            try {
-                // Upload the file
-                const uploadResponse = await fetch('http://localhost:8080/upload', {
-                    method: 'POST',
-                    body: formData
-                });
-
-                if (!uploadResponse.ok) {
-                    throw new Error('File upload failed');
-                }
-
-                const jsonResponse = await uploadResponse.json();
-                document.getElementById('output').textContent = JSON.stringify(jsonResponse, null, 2);
-            } catch (error) {
-                alert(error.message);
-            }
-        });
-
-        // Prevent the default form submission to ensure no unexpected reloads
-        document.getElementById('uploadForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
